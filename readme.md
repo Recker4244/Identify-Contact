@@ -1,8 +1,10 @@
 
 ## Project setup
 
+- Prerequisites:
+
+Docker: Make sure you have Docker installed on your machine. You can download and install Docker from the official website: https://www.docker.com/get-started
 - Clone the repository and navigate to the project directory.
-- Perform `npm install` at command line.
 - Create an empty postgres database.
 - Define the environment variables in the `docker-compose.yml` file like below:
 ```
