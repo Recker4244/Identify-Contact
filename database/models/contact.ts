@@ -5,7 +5,7 @@ import {sequelize} from './index';
 export interface ContactAttributes {
   id: number;
   email?: string;
-  phoneNumber?: string;
+  phoneNumber?: number;
   linkPrecedence: string;
   linkedId?: number;
   deletedAt: Date;
