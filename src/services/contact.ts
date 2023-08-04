@@ -86,8 +86,10 @@ const checkIfAccountExists = async (targetContact: Contact) => {
 
 const checkIfSecondaryAccountExists = async (targetContact: Contact, linkedPrimaryAccount: ContactInstance) => {
   const secondaryContacts = await findSecondaryContacts(linkedPrimaryAccount.id);
+  if (secondaryContacts.length === 0)
+    return false;
   const secondaryContact = secondaryContacts.find((contact: ContactInstance) => contact.email === targetContact.email && contact.phoneNumber == targetContact.phoneNumber);
-  return secondaryContact !== null;
+  return secondaryContact !== undefined;
 }
 
 
