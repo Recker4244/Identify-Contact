@@ -1,25 +1,25 @@
 
-## Project setup
+## Usage
+-The web service exposes an endpoint at `https://bitespeed-l7jb.onrender.com/identify` to receive HTTP POST requests with JSON bodies. The JSON body should contain either an `email` or a `phoneNumber` (or both) for identification. The service then performs the identity reconciliation and returns a JSON payload containing the consolidated contact information.
 
-- Prerequisites:
+### Example Request:
 
-Docker: Make sure you have Docker installed on your machine. You can download and install Docker from the official website: https://www.docker.com/get-started
-- Clone the repository and navigate to the project directory.
-- Create an empty postgres database.
-- Define the environment variables in the `docker-compose.yml` file like below:
+```json
+{
+    "email": "lorraine@hillvalley.edu",
+    "phoneNumber": "1234567890"
+}
 ```
-PORT=<port to be used for exposing the app>
-DB_PORT=<port to be used to connect to database>
-DB_USER=<username to be used for database>
-DB_PASS=<password to be used for database>
-DB_HOST=<hostname to connect to for database>
-POSTGRES_USER=<username to be used for database>
-POSTGRES_PASSWORD=<password to be used for database>
-```
-- Open your command line interface and navigate to the root directory of the cloned repository.
-- Run the following command to build and start the containers:
-```
-docker-compose up --build
-```
-- Once the containers are up and running, you can access the Express application in your web browser at http://localhost:3000(If you did not change the port)
-- To stop the running containers, use the keyboard shortcut Ctrl + C in the command line interface.
+
+### Example Response:
+
+```json
+{
+    "contact": {
+        "primaryContactId": 1,
+        "emails": ["mcfly@hillvalley.edu", "lorraine@hillvalley.edu", "george@hillvalley.edu"],
+        "phoneNumbers": ["1234567890"],
+        "secondaryContactIds": [2, 3]
+    }
+}
+``` 
