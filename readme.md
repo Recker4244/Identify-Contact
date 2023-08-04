@@ -10,10 +10,11 @@ Docker: Make sure you have Docker installed on your machine. You can download an
 ```
 PORT=<port to be used for exposing the app>
 DB_PORT=<port to be used to connect to database>
-POSTGRESQL_DB_NAME=<database name to connect to>
 DB_USER=<username to be used for database>
 DB_PASS=<password to be used for database>
 DB_HOST=<hostname to connect to for database>
+POSTGRES_USER=<username to be used for database>
+POSTGRES_PASSWORD=<password to be used for database>
 ```
 - Open your command line interface and navigate to the root directory of the cloned repository.
 - Run the following command to build and start the containers:
