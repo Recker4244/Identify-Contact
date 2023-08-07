@@ -10,7 +10,7 @@
     "seed:up": "sequelize db:seed:all",
     "seed:down": "sequelize db:seed:undo:all",
     "start:server": "nodemon ./src/app.ts",
-    "start": "npm run db:up && npm run start:server",
+    "start": "npm run db:down && npm run db:up && npm run start:server",
     "test": "jest"
   },
   "keywords": [],
