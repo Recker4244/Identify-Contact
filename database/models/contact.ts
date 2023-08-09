@@ -1,22 +1,22 @@
 // istanbul ignore file
-import {Model, Optional, DataTypes} from 'sequelize';
-import {sequelize} from './index';
+import { Model, Optional, DataTypes } from 'sequelize';
+import { sequelize } from './index';
 
 export interface ContactAttributes {
   id: number;
   email?: string;
-  phoneNumber?: number;
+  phoneNumber?: string;
   linkPrecedence: string;
   linkedId?: number;
   deletedAt: Date;
 }
 
 export interface ContactCreationAttributes
-  extends Optional<ContactAttributes, 'id'> {}
+  extends Optional<ContactAttributes, 'id'> { }
 
 export interface ContactInstance
   extends Model<ContactAttributes, ContactCreationAttributes>,
-    ContactAttributes {
+  ContactAttributes {
   createdAt: Date;
   updatedAt: Date;
   findOne(options: object): Promise<ContactInstance>;

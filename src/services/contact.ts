@@ -4,7 +4,7 @@ import { ContactInstance } from '../../database/models/contact';
 
 type Contact = {
   email?: string;
-  phoneNumber?: number;
+  phoneNumber?: string;
 };
 
 const identifyContact = async (contact: Contact) => {
@@ -147,12 +147,12 @@ const searchContactByEmailOrPhoneNumber = async (contact: Contact, allLinkedCont
 const getLinkedContactsToPrimaryAccount = async (linkedPrimaryAccount: ContactInstance) => {
   const secondaryContacts = await findSecondaryContacts(linkedPrimaryAccount.id);
   const secondaryContactsMails = secondaryContacts.map((contact: ContactInstance) => contact.email);
-  secondaryContactsMails.push(linkedPrimaryAccount.email);
+  secondaryContactsMails.unshift(linkedPrimaryAccount.email);
   const emails = getUniqueEmails(secondaryContactsMails as string[]);
 
   const secondaryContactsPhoneNumbers = secondaryContacts.map((contact: ContactInstance) => contact.phoneNumber);
-  secondaryContactsPhoneNumbers.push(linkedPrimaryAccount.phoneNumber);
-  const phoneNumbers = getUniquePhoneNumbers(secondaryContactsPhoneNumbers as number[]);
+  secondaryContactsPhoneNumbers.unshift(linkedPrimaryAccount.phoneNumber);
+  const phoneNumbers = getUniquePhoneNumbers(secondaryContactsPhoneNumbers as string[]);
   const contactResponse = {
     contact: {
       primaryContactId: linkedPrimaryAccount.id,
@@ -171,12 +171,12 @@ const handleSinglePrimaryAccount = async (contact: Contact, linkedPrimaryAccount
   const secondaryContacts = await findSecondaryContacts(linkedPrimaryAccount.id);
 
   const secondaryContactsMails = secondaryContacts.map((contact: ContactInstance) => contact.email);
-  secondaryContactsMails.push(linkedPrimaryAccount.email);
+  secondaryContactsMails.unshift(linkedPrimaryAccount.email);
   const emails = getUniqueEmails(secondaryContactsMails as string[]);
 
   const secondaryContactsPhoneNumbers = secondaryContacts.map((contact: ContactInstance) => contact.phoneNumber);
-  secondaryContactsPhoneNumbers.push(linkedPrimaryAccount.phoneNumber);
-  const phoneNumbers = getUniquePhoneNumbers(secondaryContactsPhoneNumbers as number[]);
+  secondaryContactsPhoneNumbers.unshift(linkedPrimaryAccount.phoneNumber);
+  const phoneNumbers = getUniquePhoneNumbers(secondaryContactsPhoneNumbers as string[]);
   const contactResponse = {
     contact: {
       primaryContactId: linkedPrimaryAccount.id,
@@ -195,14 +195,14 @@ const getUniqueEmails = (contactEmails: string[]) => {
   return uniqueEmails;
 };
 
-const getUniquePhoneNumbers = (contactPhoneNumbers: number[]) => {
+const getUniquePhoneNumbers = (contactPhoneNumbers: string[]) => {
   const uniquePhoneNumbers = contactPhoneNumbers.filter(
     (phoneNumber, index) => contactPhoneNumbers.indexOf(phoneNumber) === index
   );
   return uniquePhoneNumbers;
 };
 
-const createNewSecondaryContact = async (linkedId: number, email?: String, phoneNumber?: Number,) => {
+const createNewSecondaryContact = async (linkedId: number, email?: String, phoneNumber?: String,) => {
   const newSecondaryContact = await db.Contact.create({
     email: email,
     phoneNumber: phoneNumber,
